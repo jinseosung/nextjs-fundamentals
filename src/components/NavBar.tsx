@@ -9,7 +9,7 @@ const NavBar: React.FC = () => {
   return (
     <nav>
       <div className="logo">
-        <Image src="/vercel.svg" alt="logo" width={100} height={25} />
+        <Image src="/vercel.svg" alt="logo" width={100} height={25} priority />
       </div>
       <div className="links">
         <Link href="/" style={{ textDecoration: "none" }}>
