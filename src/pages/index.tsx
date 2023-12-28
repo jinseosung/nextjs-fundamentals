@@ -36,6 +36,9 @@ export default function Home({
           padding: 20px;
           gap: 20px;
         }
+        .movie {
+          cursor: pointer;
+        }
         .image {
           position: relative;
           max-width: 100%;

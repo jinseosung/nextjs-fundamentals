@@ -37,7 +37,6 @@ const NavBar: React.FC = () => {
           margin-bottom: 5px;
         }
         span {
-          color: tomato;
           font-weight: 600;
           font-size: 18px;
         }
@@ -46,7 +45,7 @@ const NavBar: React.FC = () => {
           gap: 10px;
         }
         .active {
-          color: white;
+          color: tomato;
         }
       `}</style>
     </nav>
