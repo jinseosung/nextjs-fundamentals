@@ -1,7 +1,7 @@
 import Seo from "@/components/Seo";
-import { Movies } from "@/type/Movies";
+import { Movie } from "@/type/Movies";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
 const options = {
   method: "GET",
@@ -11,26 +11,13 @@ const options = {
   },
 };
 
-export default function Home() {
-  const [movies, setMovies] = useState<Movies>([]);
-
-  useEffect(() => {
-    (async () => {
-      const { results } = await (
-        await fetch(
-          "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1",
-          options
-        )
-      ).json();
-
-      setMovies(results);
-    })();
-  }, []);
-
+export default function Home({
+  results,
+}: InferGetServerSidePropsType<GetServerSideProps>) {
   return (
     <div className="container">
       <Seo title="Home" />
-      {movies?.map((movie) => (
+      {results?.map((movie: Movie) => (
         <div className="movie" key={movie.id}>
           <div className="image">
             <Image
@@ -68,4 +55,17 @@ export default function Home() {
       `}</style>
     </div>
   );
+}
+
+export async function getServerSideProps({}: GetServerSideProps) {
+  const { results } = await (
+    await fetch(
+      "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1",
+      options
+    )
+  ).json();
+
+  return {
+    props: { results },
+  };
 }
