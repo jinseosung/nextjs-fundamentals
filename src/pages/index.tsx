@@ -2,6 +2,7 @@ import Seo from "@/components/Seo";
 import { Movie } from "@/type/Movies";
 import Image from "next/image";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import Link from "next/link";
 
 const options = {
   method: "GET",
@@ -18,16 +19,28 @@ export default function Home({
     <div className="container">
       <Seo title="Home" />
       {results?.map((movie: Movie) => (
-        <div className="movie" key={movie.id}>
-          <div className="image">
-            <Image
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              alt={movie.original_title}
-              layout="fill"
-            />
+        <Link
+          href={{
+            pathname: `/movies/${movie.id}`,
+            query: {
+              title: movie.original_title,
+            },
+          }}
+          as={`/movies/${movie.id}`}
+          key={movie.id}
+        >
+          <div className="movie">
+            <div className="image">
+              <Image
+                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                alt={movie.original_title}
+                width={230}
+                height={345}
+              />
+            </div>
+            <h4>{movie.original_title}</h4>
           </div>
-          <h4>{movie.original_title}</h4>
-        </div>
+        </Link>
       ))}
       <style jsx>{`
         .container {
